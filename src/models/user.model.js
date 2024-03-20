@@ -25,7 +25,7 @@ const userSchema = new Schema({
         trim: true,
         index: true
     },
-    avatr: {
+    avatar: {
         type: String,
         required: true,
     },
@@ -35,7 +35,7 @@ const userSchema = new Schema({
     watchHistory: [
         {
             type: Schema.Types.ObjectId,
-            ref: Video
+            ref: "Video"
         }
     ],
     password: {
@@ -52,7 +52,7 @@ const userSchema = new Schema({
 
 userSchema.pre("save",async function(next){
     if(this.isModified('password')){
-       await bcrypt(this.password,10);
+       await bcrypt.hash(this.password,10);
     }
     next();
 })
